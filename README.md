@@ -1,5 +1,6 @@
 # Atividade-Docker
 Essa atividade tem como objetivo fazer o deploy de uma aplicação Wordpress por meio de docker em duas instâncias AWS EC2, um conteiner de aplicação AWS RDS MySQL, a utilização de um serviço EFS AWS para os estaticos do conteiner e um load balancer para gerenciar o trafego.
+
 # Objetivos
 1. Criar um script de automação(user_data.sh)
 2. Subir uma instância EC2 com as tags certas e com o script
@@ -32,5 +33,15 @@ Essa atividade tem como objetivo fazer o deploy de uma aplicação Wordpress por
 3. Escolher "MySQL" e "Instância de banco de dados única"
 4. Configurar normalmente e selecionar grupos de segurança
 5. Apertar em "Criar banco de dados"
+
 # Criar um Elastic File System
+1. Entrar na aba "EFS"
+2. Apertar em "criar sistema de arquivos"
+3. Selecione o nome e a VPC
+4. Aperte em "criar"
+
 # Criar um Load Balancer
+1. Ir na aba de "Load Balancers"
+2. Aperte em "criar um Load Balancer"
+3. Selecione "criar um Load Balancer Classic"
+4. 
