@@ -1,31 +1,37 @@
 # Atividade-Docker
 Essa atividade tem como objetivo fazer o deploy de uma aplicação Wordpress por meio de docker em duas instâncias AWS EC2, um conteiner de aplicação AWS RDS MySQL, a utilização de um serviço EFS AWS para os estaticos do conteiner e um load balancer para gerenciar o trafego.
+![arq](https://github.com/user-attachments/assets/a67a7220-2c70-4fdb-8500-a8533598747a)
+
 
 # Objetivos
-1. Criar um script de automação(user_data.sh)
-2. Subir uma instância EC2 com as tags certas e com o script
+2. Subir uma instância EC2 com as tags certas e com o script user_data.sh
 3. Criar banco de dados RDS AWS
 4. Criar um EFS(Elastic Fyle System)
 5. Criar um Load Balancer
+6. Criar um Grupo de Auto Scaling
 
 # Pré-requisitos
-1. Uma conta AWS com as permissões certas.   
-2. Qualquer terminal de ssh(putty, MobaXterm, etc...)
+1. Uma conta AWS com as permissões certas.
+
+# Grupos de Segurança
+EFS:Tipo NFS
+EC2:Tipo HTTP com origem 0.0.0.0/0, tipo SSH com origem 0.0.0.0/0, tipo MYSQL/AURORA com origem 0.0.0.0/0
+RDS:Tipo MYSQL/AURORA com origem no grupo de segurança EC2
+LOADBALANCER:Tipo HTTP com origem 0.0.0.0/0
 
 # Requisitos do Script de automação(user_data.sh)
 1. Instalar Docker
-2. Instalar e configurar o MySQL
+2. Instalar o Docker Compose
 3. Criar arquivo "Docker-compose.yml", que contem o wordpress e suas devidas configurações
 
-# Configuração da instância EC2
-1. Entrar e fazer login no site da AWS
-2. Entrar na aba de "EC2"
-3. Colocar as devidas Tags
+# Configuração do modelo de execução da instância EC2
+1. Entrar na aba de "EC2"
+2. Entrar em "Modelos de execução" e selecione "criar modelo de execução"
+3. Colocar tags
 4. Escolher opções adequadas ao nível gratuito
-5. Permitir IP público(para conexão SSH)
-6. Selecionar grupos de segurança corretamente
-7. ir na aba de "dados adicionais" e colocar o script user_data.sh no campo especificado
-8. Executar instância
+5. Selecionar grupos de segurança corretamente
+6. ir na aba de "dados adicionais" e colocar o script user_data.sh no campo especificado
+7. Salvar modelo
 
 # Criar Banco de dados RDS
 1. Entrar na aba de "RDS"
