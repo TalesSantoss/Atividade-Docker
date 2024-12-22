@@ -1,37 +1,30 @@
 #!/bin/bash
-
-sudo su
-apt update -y
-apt upgrade -y
-apt install -y docker.io git
-systemctl start docker
-systemctl enable docker
-apt install mysql -y
-
-mysql -h (domínio ou host) -P 3306 -u (usuário) -p(senha)! <<EOF
-CREATE DATABASE ;
-EXIT;
-EOF
-
-mkdir -p /usr/lib/docker/cli-plugins
-curl -o /usr/lib/docker/cli-plugins/dockercompose -SL https://github.com/docker/compose/releases/download/v2.30.3/docker-compose-linux-x86_64 
-chmod +x /usr/lib/docker/cli-plugins/dockercompose
-usermod -aG docker ubuntu
-mkdir -p /home/ubuntu/wordpress
-cd /home/ubuntu/wordpress
-
-sudo cat <<EOF > Docker-Compose.yml
+ 
+sudo apt-get update -y
+sudo apt-get install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ubuntu
+newgrp docker
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo mkdir /wordpress
+ cd wordpress
+cat <<EOF > /wordpress/docker-compose.yml
 services:
+ 
   wordpress:
-    image: wordpress:latest
+    image: wordpress
     restart: always
     ports:
-      - 8080:80
-    enviroment
-      WORDPRESS_DB_HOST: 
-      WORDPRESS_DB_USER: 
-      WORDPRESS_DB_PASSWORD: 
-      WORDPRESS_DB_NAME: 
-volumes:
-  wordpress_data:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: database-1.cheim46im53d.us-east-1.rds.amazonaws.com:3306
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: 123456789
+      WORDPRESS_DB_NAME: bancomysql
+    volumes:
+      - /mnt/efs:/var/www/html
 EOF
+ 
+docker-compose -f /wordpress/docker-compose.yml up -d
