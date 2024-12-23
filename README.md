@@ -48,6 +48,8 @@ Esse será o grupo privado utilizado para a instância EC2, O RDS, e o EFS
 **OBS: A regra de HTTP tem origem no grupo de segurança do Load Balancer**
 
 # 4. Criação do Banco de dados RDS:
+
+4.1 abrir grupo de subrede e crie uma
 4.1 Vá na aba de "RDS" e selecione "Instâncias de banco de dados"
 
 4.2 Aperte em "Criar banco de dados"
