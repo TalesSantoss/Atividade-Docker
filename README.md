@@ -76,6 +76,8 @@ Esse será o grupo privado utilizado para a instância EC2, O RDS, e o EFS
 
 4.2 Aperte em "Criar sistema de arquivos, nomeie e crie seu EFS
 
+4.3 Vá nos detalhes do sistema de aequivos e aperte em "anexar", lá escolha a montagem pelo DNS e copie a segunda opção para usar no "user_data.sh"
+
 # 5. Criação do script user_data.sh
 5.1 Deve ser feito em shell e deve conter uma instalação do docker
 
@@ -111,7 +113,7 @@ services:
     volumes:
       - /mnt/efs:/var/www/html
 EOF
-sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport <DNS do EFS>:/ efs
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport <DNS do EFS>:/ /mnt/efs
 docker-compose -f /home/ec2-user/wordpress/docker-compose.yml up -d
 ``` 
 # 6. Criação da EC2
